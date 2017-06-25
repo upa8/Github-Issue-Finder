@@ -57,3 +57,12 @@ typings/
 # dotenv environment variables file
 .env
 
+node_modules/**/*.expo/*
+npm-debug.*
+
+.idea/*
+.expo/*
+.watchmanconfig
+.babelrc
+
+
