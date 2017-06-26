@@ -19,14 +19,14 @@ class App extends React.Component {
 
     onPressLearnMore(){
         console.log('Search text ' + this.state.searchText);
-       var url = 'https://api.github.com/repos/'+ this.state.searchText +'/issues?page=1&per_page=10';
+        var url = 'https://api.github.com/repos/'+ this.state.searchText +'/issues?page=1&per_page=10';
         console.log('URL ' + url);
         axios.get(url)
           .then(res => {
             debugger
             const issues = res.data;
             this.setState({ issueList : issues });
-        });
+        })
     }
 
     _keyExtractor = (item, index) => item.id;
@@ -37,6 +37,7 @@ class App extends React.Component {
                 
                 <TextInput 
                     style={{height: 40, borderColor: 'gray', width:300, borderWidth: 1}}
+                    placeholderTextColor="white"
                     onChangeText={(text) => this.setState({searchText:text})}
                 />
 
