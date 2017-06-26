@@ -17,6 +17,12 @@ Subtasks -
 *) Installed genymotion
 *) Installed virtual box
 *) Watch tutorials on flex basics and layout
-*) Read about redux, redux patterns, 
+*) Read about redux, redux patterns 
+*) Validations - Remained
+*) Pagination - Remained
+*) Layout enhancement - Remained
+*) Loading Icon - Remained 
+*) Write test cases - Remained
+*)  
 
 

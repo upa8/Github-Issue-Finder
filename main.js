@@ -50,7 +50,7 @@ class App extends React.Component {
                         data={this.state.issueList}
                         keyExtractor={this._keyExtractor}
                         renderItem={({item}) => 
-                              <View>
+                              <View style={styles.itemBox}>
                                 <Text style={styles.item}>Id - {item.id}</Text>
                                 <Text style={styles.item}>Title - {item.title}</Text>
                               </View>                   
@@ -62,18 +62,25 @@ class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30
+        marginTop: 30,
+        backgroundColor: '#442358'
     },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
+    item: {
+      padding: 10,
+      fontSize: 18,
+      color: '#fff',
+      padding: 5,
+      margin: 2
+    },
+    itemBox: {
+      borderWidth: 1,
+      borderColor: '#fff',
+    }
 });
 
     Expo.registerRootComponent(App);
