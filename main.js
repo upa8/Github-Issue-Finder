@@ -19,13 +19,14 @@ class App extends React.Component {
 
     onPressLearnMore(){
         console.log('Search text ' + this.state.searchText);
-        
-        axios.get(`https://api.github.com/repos/facebook/react-native/issues?page=1&per_page=10`)
-        .then(res => {
-        debugger
-        const issues = res.data;
-        this.setState({ issueList : issues });
-      });
+       var url = 'https://api.github.com/repos/'+ this.state.searchText +'/issues?page=1&per_page=10';
+        console.log('URL ' + url);
+        axios.get(url)
+          .then(res => {
+            debugger
+            const issues = res.data;
+            this.setState({ issueList : issues });
+        });
     }
 
     _keyExtractor = (item, index) => item.id;
@@ -41,14 +42,19 @@ class App extends React.Component {
 
                 <Button
                     onPress={this.onPressLearnMore}
-                    title="Click here"
+                    title="Get Issues"
                     color="#841584"
                     accessibilityLabel="Learn more about this purple button" />
 
                      <FlatList
                         data={this.state.issueList}
                         keyExtractor={this._keyExtractor}
-                        renderItem={({item}) => <Text style={styles.item}>{item.title}</Text>}
+                        renderItem={({item}) => 
+                              <View>
+                                <Text style={styles.item}>Id - {item.id}</Text>
+                                <Text style={styles.item}>Title - {item.title}</Text>
+                              </View>                   
+                      }
                     />
             </View>
         );
@@ -61,8 +67,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 30
     },
-
   item: {
     padding: 10,
     fontSize: 18,
