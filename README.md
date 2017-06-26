@@ -5,13 +5,13 @@ A React-Native application which finds issues of a particular Github Repository
 Screenshots 
 
 1
-![Screenshot](screenshots/1.jepg)
+![Screenshot](screenshots/1.jpeg)
 2
-![Screenshot](screenshots/2.jepg)
+![Screenshot](screenshots/2.jpeg)
 3
-![Screenshot](screenshots/3.jepg)
+![Screenshot](screenshots/3.jpeg)
 4
-![Screenshot](screenshots/4.jepg)
+![Screenshot](screenshots/4.jpeg)
 
 
 
