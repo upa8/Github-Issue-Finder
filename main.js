@@ -36,7 +36,7 @@ class App extends React.Component {
             <View style={styles.container}>
                 
                 <TextInput 
-                    style={{height: 40, borderColor: 'gray', width:300, borderWidth: 1}}
+                    style={{height: 40, borderColor: 'gray', width:300, borderWidth: 1, backgroundColor: '#fff'}}
                     placeholderTextColor="white"
                     onChangeText={(text) => this.setState({searchText:text})}
                 />
