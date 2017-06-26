@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
     }
 });
 
-    Expo.registerRootComponent(App);
+Expo.registerRootComponent(App);
