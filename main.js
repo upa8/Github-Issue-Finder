@@ -19,6 +19,7 @@ class App extends React.Component {
 
     onPressLearnMore(){
         console.log('Search text ' + this.state.searchText);
+        
         axios.get(`https://api.github.com/repos/facebook/react-native/issues?page=1&per_page=10`)
         .then(res => {
         debugger
@@ -27,11 +28,11 @@ class App extends React.Component {
       });
     }
 
+    _keyExtractor = (item, index) => item.id;
+
     render() {
         return (
             <View style={styles.container}>
-                
-                <Text> Hi {this.state.searchText}</Text>
                 
                 <TextInput 
                     style={{height: 40, borderColor: 'gray', width:300, borderWidth: 1}}
@@ -45,17 +46,9 @@ class App extends React.Component {
                     accessibilityLabel="Learn more about this purple button" />
 
                      <FlatList
-                        data={[
-                          {key: 'Devin'},
-                          {key: 'Jackson'},
-                          {key: 'James'},
-                          {key: 'Joel'},
-                          {key: 'John'},
-                          {key: 'Jillian'},
-                          {key: 'Jimmy'},
-                          {key: 'Julie'},
-                        ]}
-                        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+                        data={this.state.issueList}
+                        keyExtractor={this._keyExtractor}
+                        renderItem={({item}) => <Text style={styles.item}>{item.title}</Text>}
                     />
             </View>
         );
