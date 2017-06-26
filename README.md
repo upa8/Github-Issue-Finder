@@ -2,6 +2,19 @@
 A React-Native application which finds issues of a particular Github Repository
 
 
+Screenshots 
+
+1
+![Screenshot](screenshots/1.jepg)
+2
+![Screenshot](screenshots/2.jepg)
+3
+![Screenshot](screenshots/3.jepg)
+4
+![Screenshot](screenshots/4.jepg)
+
+
+
 Subtasks -
 
 * Install nodejs - Done
