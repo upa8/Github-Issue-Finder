@@ -43,7 +43,7 @@ class App extends React.Component {
 
                 <Button
                     onPress={this.onPressLearnMore}
-                    title="Get Issues"
+                    title="Get Issuess"
                     color="#841584"
                     accessibilityLabel="Learn more about this purple button" />
 
