@@ -37,9 +37,10 @@ class App extends React.Component {
             this.setState({ loading : false });
             this.setState({ issueList : issues });
         }).catch(function (error) {
+            // TODO: Handle error here (low priority)
             // Set error message 
             this.setState({ loading : false });
-            
+              
             this.setState({ loadingText : 'Error in fetching data, please check the repository name' });
         
             console.log(error);
@@ -49,15 +50,16 @@ class App extends React.Component {
     _keyExtractor = (item, index) => item.id;
 
     render() {
+            
             let loader;
             let next;
             let previous;
-           if(this.state.loading){
-              loader = <Text style={styles.item}>{this.state.loadingText}</Text>
-           }
+            
+            if(this.state.loading){
+                loader = <Text style={styles.item}>{this.state.loadingText}</Text>
+            }
             
         return (
-
 
             <View style={styles.container}>
                 
