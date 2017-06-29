@@ -11,7 +11,9 @@ class App extends React.Component {
         this.state = {
           something: "Something this is nothing but a bug",
           issueList: [],
-          searchText: ''
+          searchText: '',
+          loading: false,
+          loadingText: 'Loading'
         };
         this.onPressLearnMore = this.onPressLearnMore.bind(this);
     }
@@ -20,19 +22,43 @@ class App extends React.Component {
     onPressLearnMore(){
         console.log('Search text ' + this.state.searchText);
         var url = 'https://api.github.com/repos/'+ this.state.searchText +'/issues?page=1&per_page=10';
-        console.log('URL ' + url);
+        // Empty issueList 
+        var emptyList = [];
+        this.setState({ issueList : emptyList });
+        // Set error message 
+        this.setState({ loading : true });
+        this.setState({ loadingText : 'Loading Please wait' });
+            
+        // set loading text   
         axios.get(url)
           .then(res => {
-            debugger
             const issues = res.data;
+            // empty loading text
+            this.setState({ loading : false });
             this.setState({ issueList : issues });
-        })
+        }).catch(function (error) {
+            // Set error message 
+            this.setState({ loading : false });
+            
+            this.setState({ loadingText : 'Error in fetching data, please check the repository name' });
+        
+            console.log(error);
+        });
     }
 
     _keyExtractor = (item, index) => item.id;
 
     render() {
+            let loader;
+            let next;
+            let previous;
+           if(this.state.loading){
+              loader = <Text style={styles.item}>{this.state.loadingText}</Text>
+           }
+            
         return (
+
+
             <View style={styles.container}>
                 
                 <TextInput 
@@ -46,17 +72,18 @@ class App extends React.Component {
                     title="Get Issuess"
                     color="#841584"
                     accessibilityLabel="Learn more about this purple button" />
-
-                     <FlatList
-                        data={this.state.issueList}
-                        keyExtractor={this._keyExtractor}
-                        renderItem={({item}) => 
-                              <View style={styles.itemBox}>
-                                <Text style={styles.item}>Id - {item.id}</Text>
-                                <Text style={styles.item}>Title - {item.title}</Text>
-                              </View>                   
-                      }
-                    />
+            
+               {loader}       
+               <FlatList
+                  data={this.state.issueList}
+                  keyExtractor={this._keyExtractor}
+                  renderItem={({item}) => 
+                        <View style={styles.itemBox}>
+                          <Text style={styles.item}>Id - {item.id}</Text>
+                          <Text style={styles.item}>Title - {item.title}</Text>
+                        </View>                   
+                }
+              />
             </View>
         );
     }
