@@ -84,6 +84,15 @@ class App extends React.Component {
                 console.log(error);
             });
         }else{
+            // remove buttons
+            this.setState({ nextUrl : '' });
+            this.setState({ lastUrl : '' });
+            this.setState({ prevUrl : '' });
+            this.setState({ firstUrl : '' });
+
+            // remove listview
+            this.setState({ issueList : []});
+
             this.setState({ loading: true });
             this.setState({ loadingText : 'Please enter the correct repository name' });
         }
