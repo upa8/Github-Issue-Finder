@@ -35,52 +35,58 @@ class App extends React.Component {
         var firstPageUrl = 'https://api.github.com/repos/'+ this.state.searchText +'/issues?page=1&per_page=10';
         var url = urlValue? urlValue : firstPageUrl;
 
-        // Empty issueList
-        var emptyList = [];
-        this.setState({ issueList : emptyList });
-        // Set error message
-        this.setState({ loading : true });
-        this.setState({ loadingText : 'Loading ...' });
 
-        // set loading text
-        axios.get(url)
-            .then(res => {
-                debugger
-                const issues = res.data;
-                // empty loading text
-                this.setState({
-                    loading : false,
-                    issueList : issues
-                });
-                var links = res.headers.link.split(',')
-                var linkLength = links.length
-                for(var i = 0; i < linkLength; i++){
-                    var data = links[i].match(/<(.+)>; rel="(.+)"/);
-                    if(data[2] === 'next'){
-                        this.setState({ nextUrl : data[1] })
-                    }
-                    if(data[2] === 'last'){
-                        this.setState({ lastUrl : data[1] })
-                    }
-                    if(data[2] === 'prev'){
-                        this.setState({ prevUrl : data[1] })
-                    }
-                    if(data[2] === 'first'){
-                        this.setState({ firstUrl : data[1] })
-                    }
-                }
-
-                console.log('Reached here ');
-
-            }).catch(function (error) {
-            // TODO: Handle error here (low priority)
+        if(this.state.searchText.length > 2){
+            // Empty issueList
+            var emptyList = [];
+            this.setState({ issueList : emptyList });
             // Set error message
-            this.setState({ loading : false });
+            this.setState({ loading : true });
+            this.setState({ loadingText : 'Loading ...' });
 
-            this.setState({ loadingText : 'Error in fetching data, please check the repository name' });
+            // set loading text
+            axios.get(url)
+                .then(res => {
+                    debugger
+                    const issues = res.data;
+                    // empty loading text
+                    this.setState({
+                        loading : false,
+                        issueList : issues
+                    });
+                    var links = res.headers.link.split(',')
+                    var linkLength = links.length
+                    for(var i = 0; i < linkLength; i++){
+                        var data = links[i].match(/<(.+)>; rel="(.+)"/);
+                        if(data[2] === 'next'){
+                            this.setState({ nextUrl : data[1] })
+                        }
+                        if(data[2] === 'last'){
+                            this.setState({ lastUrl : data[1] })
+                        }
+                        if(data[2] === 'prev'){
+                            this.setState({ prevUrl : data[1] })
+                        }
+                        if(data[2] === 'first'){
+                            this.setState({ firstUrl : data[1] })
+                        }
+                    }
 
-            console.log(error);
-        });
+                    console.log('Reached here ');
+
+                }).catch(function (error) {
+                // TODO: Handle error here (low priority)
+                // Set error message
+                this.setState({ loading : false });
+
+                this.setState({ loadingText : 'Error in fetching data, please check the repository name' });
+
+                console.log(error);
+            });
+        }else{
+            this.setState({ loading: true });
+            this.setState({ loadingText : 'Please enter the correct repository name' });
+        }
     }
     next(){
 
@@ -156,11 +162,17 @@ class App extends React.Component {
                     }
                 />
 
-                {this.state.firstUrl.length > 0 && first}
-                {this.state.prevUrl.length > 0 && previous}
-                {this.state.nextUrl.length > 0 && next}
-                {this.state.lastUrl.length > 0 && last}
+                <View style={{ flexDirection: 'row', alignItems: 'center',
+                    justifyContent: 'space-between'}}>
+
+                    {this.state.firstUrl.length > 0 && first}
+
+                    {this.state.prevUrl.length > 0 && previous}
+                    {this.state.nextUrl.length > 0 && next}
+                    {this.state.lastUrl.length > 0 && last}
+                </View>
             </View>
+
         );
     }
 }
@@ -171,11 +183,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30,
+        marginTop: 25,
         backgroundColor: '#442358'
     },
     item: {
-        padding: 10,
         fontSize: 18,
         color: '#fff',
         padding: 5,
